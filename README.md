@@ -1,9 +1,14 @@
+> ⚠️ **Important:** This project is under active development. It is valid for insipiration as similar work has been successfully used in production, however this extention has not yet been validated.
+
+
 # Solidus Multi Tenant
 
 [![CircleCI](https://circleci.com/gh/solidusio-contrib/solidus_multi_tenant.svg?style=shield)](https://circleci.com/gh/solidusio-contrib/solidus_multi_tenant)
 [![codecov](https://codecov.io/gh/solidusio-contrib/solidus_multi_tenant/branch/main/graph/badge.svg)](https://codecov.io/gh/solidusio-contrib/solidus_multi_tenant)
 
-<!-- Explain what your extension does. -->
+This extension provides a way to manage multiple tenants within a single Solidus installation using an active fork of the [Apartment](https://github.com/rails-on-services/apartment) gem. Please refer to the gem documentation for more information on setup as this gem enhances the implemntation to get quickly up and running with Solidus.
+
+Solidus works better with Apartment for multi-tenancy as it needs minimal application modifications, however, if you are looking for a row-level multi-tenancy solution with Solidus, please check out my other work with [solidus_acts_as_tenant](https://github.com/ikraamg/solidus_acts_as_tenant).
 
 ## Installation
 
@@ -17,6 +22,37 @@ Bundle your dependencies and run the installation generator:
 
 ```shell
 bin/rails generate solidus_multi_tenant:install
+```
+
+#### Scope the cache store to the current tenant
+
+```ruby
+  config.cache_store = :memory_store, {namespace: -> { Apartment::Tenant.current }}
+```
+
+#### Add this to your .irbrc file to load the TenantSelector to support tenant switching in the console
+
+```ruby
+if defined?(Rails)
+  TS = SolidusActAsTenant::Utils::TenantSelector.new
+
+  IRB.conf[:IRB_RC] = proc do
+    #   * TS.ask             => anytime in console, to switch tenant from a list
+    #   * TS.current         => same as Apartment::Tenant.current
+    #   * TS.tenants         => hash of tenants. Example: { 0 => "Demo Company" }
+    #   * TS.switch_tenant!(tenant_name) => same as Apartment.current = Spree::Tenant.find_by(name: tenant_name)
+    TS.ask
+  end
+end
+```
+
+#### Load the spree settings per tenant into the namespaced cache
+
+TODO: Double check if this is a valid suggestion and if it is, does it work because spree preferences are not namespaced
+
+```ruby
+#initializers/spree.rb
+::Apartment::Tenant.each_with_default do |_tenant_name| -
 ```
 
 ## Usage

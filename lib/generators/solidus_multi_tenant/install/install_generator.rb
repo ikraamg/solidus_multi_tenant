@@ -12,6 +12,8 @@ module SolidusMultiTenant
 
       def copy_initializer
         template 'initializer.rb', 'config/initializers/solidus_multi_tenant.rb'
+        template 'apartment.rb', 'config/initializers/apartment.rb'
+        template 'tenant.rb', 'app/models/spree/tenant.rb'
       end
 
       def add_migrations
