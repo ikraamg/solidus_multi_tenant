@@ -1,4 +1,4 @@
-> ⚠️ **Important:** This project is under active development. It is valid for insipiration as similar work has been successfully used in production, however this extention has not yet been validated.
+> ⚠️ **Important:** This project is under development. It is valid for insipiration as similar work has been successfully used in production, however this extention has not yet been validated.
 
 
 # Solidus Multi Tenant
@@ -8,7 +8,7 @@
 
 This extension provides a way to manage multiple tenants within a single Solidus installation using an active fork of the [Apartment](https://github.com/rails-on-services/apartment) gem. Please refer to the gem documentation for more information on setup as this gem enhances the implemntation to get quickly up and running with Solidus.
 
-Solidus works better with Apartment for multi-tenancy as it needs minimal application modifications, however, if you are looking for a row-level multi-tenancy solution with Solidus, please check out my other work with [solidus_acts_as_tenant](https://github.com/ikraamg/solidus_acts_as_tenant).
+Solidus works better with Apartment for multi-tenancy as it needs minimal application modifications, however, if you are looking for a row-level multi-tenancy solution with Solidus, please see [solidus_acts_as_tenant](https://github.com/ikraamg/solidus_acts_as_tenant).
 
 ## Installation
 
